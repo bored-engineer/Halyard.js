@@ -1,6 +1,6 @@
 {
   "name": "Halyard.js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Platform independant FRC driver station interface.",
   "main": "index.js",
   "scripts": {
