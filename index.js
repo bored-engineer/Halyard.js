@@ -302,10 +302,11 @@ define(function() {
 	}
 
 	// Create new array for joystick
-	Halyard.prototype.__defineGetter("joysticks", function() {
+	Halyard.prototype.__defineGetter__("joysticks", function() {
 
 		// Return our empty array
 		return [
+			{ },
 			{ axes: [], buttons: [] },
 			{ axes: [], buttons: [] },
 			{ axes: [], buttons: [] },
@@ -353,7 +354,7 @@ define(function() {
 		for (j = 0; j < 16; j++) {
 
 			// Add each
-			Halyard.prototype.joysticks[i + 1].buttons.__defineSetter__(j + 1, buttonsSetter.bind(Halyard.prototype, i, j));
+			Halyard.prototype.joysticks[i + 1].buttons.__defineSetter__(j + 1, buttonSetter.bind(Halyard.prototype, i, j));
 
 		}
 
