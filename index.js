@@ -5,7 +5,10 @@ if (typeof define !== 'function') { var define = require('amdefine')(module); }
 define(function() {
 
 	// Load a buffer library
-	var Buffer = require("Buffer");
+	var Buffer = require("buffer").Buffer;
+
+	// Load a buffer library
+	var crc32 = require("buffer-crc32");
 
 	/** 
 	 * Halyard class
