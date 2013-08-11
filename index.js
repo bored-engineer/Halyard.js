@@ -74,6 +74,20 @@ define(function() {
 	Halyard.prototype._packetIndex = 0;
 
 	/**
+	 * The time, in milliseconds of each update
+	 * @private
+	 * @type {Integer}
+	 */
+	Halyard.prototype._sendInterval = 20;
+
+	/**
+	 * The send id
+	 * @private
+	 * @type {Integer}
+	 */
+	Halyard.prototype._sendID = 0;
+
+	/**
 	 * Default to values
 	 * @private
 	 * @type {Object}
@@ -446,7 +460,14 @@ define(function() {
 		buf.writeUInt16BE(this._to.analog[3], 46);
 
 		// Set the Driver Station version
-		buf.write("02121300", 72);
+		buf.writeUInt8(48, 72);
+		buf.writeUInt8(50, 73);
+		buf.writeUInt8(49, 74);
+		buf.writeUInt8(50, 75);
+		buf.writeUInt8(49, 76);
+		buf.writeUInt8(51, 77);
+		buf.writeUInt8(48, 78);
+		buf.writeUInt8(48, 79);
 
 		// Set the crc and add it to the end
 		buf.writeUInt32BE(crc32.unsigned(buf), 1020);
@@ -455,6 +476,14 @@ define(function() {
 
 		// Send a control packet
 		//this._socket.send(buf, 0, 1024, 1110, this._ips["cRIO"]);
+
+	};
+
+	// Connect to the socket
+	Halyard.prototype.connect = function() {
+
+		// Start the send
+		this._sendID = setInterval(this._send.bind(this), this._sendInterval);
 
 	};
 
