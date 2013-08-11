@@ -1,0 +1,3 @@
+[submodule "lib/buffer-crc32"]
+	path = lib/buffer-crc32
+	url = https://github.com/innoying/buffer-crc32.git
