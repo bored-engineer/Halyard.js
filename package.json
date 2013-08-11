@@ -1,24 +1,27 @@
 {
-  "name": "Halyard.js",
-  "version": "0.0.2",
-  "description": "Platform independant FRC driver station interface.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/innoying/Halyard.js.git"
-  },
-  "keywords": [
-    "FRC",
-    "Halyard",
-    "Driver",
-    "Station",
-    "Robot"
-  ],
-  "author": "innoying",
-  "license": "MIT",
-  "readmeFilename": "README.md",
-  "gitHead": "34f1412621186af1ebdc28ad231993a98cf18641"
+    "name": "Halyard.js",
+    "version": "0.0.2",
+    "description": "Platform independant FRC driver station interface.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/innoying/Halyard.js.git"
+    },
+    "dependencies": {
+        "amdefine": ">=0.0.8"
+    },
+    "keywords": [
+        "FRC",
+        "Halyard",
+        "Driver",
+        "Station",
+        "Robot"
+    ],
+    "author": "innoying",
+    "license": "MIT",
+    "readmeFilename": "README.md",
+    "gitHead": "34f1412621186af1ebdc28ad231993a98cf18641"
 }
