@@ -1,3 +1,6 @@
 [submodule "lib/buffer-crc32"]
 	path = lib/buffer-crc32
 	url = https://github.com/innoying/buffer-crc32.git
+[submodule "lib/dataview-buffer"]
+	path = lib/dataview-buffer
+	url = https://github.com/innoying/dataview-buffer.git
