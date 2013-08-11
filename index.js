@@ -39,7 +39,7 @@ define(function() {
 	 * @readonly
 	 * @enum {Integer}
 	 */
-	DriverStation.MODE = {
+	Halyard.MODE = {
 		TELEOP: 1,
 		AUTONOMOUS: 2,
 		TEST: 3
@@ -50,7 +50,7 @@ define(function() {
 	 * @readonly
 	 * @enum {Boolean}
 	 */
-	DriverStation.ALLIANCE = {
+	Halyard.ALLIANCE = {
 		RED: true,
 		BLUE: false
 	};
@@ -60,7 +60,7 @@ define(function() {
 	 * @readonly
 	 * @enum {Integer}
 	 */
-	DriverStation.POSITION = {
+	Halyard.POSITION = {
 		1: 48,
 		2: 49,
 		3: 50
@@ -71,14 +71,14 @@ define(function() {
 	 * @private
 	 * @type {Integer}
 	 */
-	DriverStation.prototype._packetIndex = 0;
+	Halyard.prototype._packetIndex = 0;
 
 	/**
 	 * Default to values
 	 * @private
 	 * @type {Object}
 	 */
-	DriverStation.prototype._to = {
+	Halyard.prototype._to = {
 		digitalIn: 0,
 		control: 68,
 		analog: [0, 0, 0, 0],
@@ -107,7 +107,7 @@ define(function() {
 	 * @private
 	 * @type {Object}
 	 */
-	DriverStation.prototype._from = {
+	Halyard.prototype._from = {
 		control: 68,
 		mac: "00:00:00:00:00",
 		battery: 0.0
@@ -115,9 +115,9 @@ define(function() {
 
 	/**
 	 * Emergency stop the robot
-	 * @name DriverStation#stop
+	 * @name Halyard#stop
 	 */
-	DriverStation.prototype.__defineSetter__("stop", function(value) {
+	Halyard.prototype.__defineSetter__("stop", function(value) {
 
 		// Flip the value of the correct bit
 		if (value) {
@@ -130,9 +130,9 @@ define(function() {
 
 	/**
 	 * If the robot it emergency stoped
-	 * @name DriverStation#stoped
+	 * @name Halyard#stoped
 	 */
-	DriverStation.prototype.__defineGetter__("stoped", function() {
+	Halyard.prototype.__defineGetter__("stoped", function() {
 
 		// Get the control bit
 		return (num & (1 << 1) !== 0);
@@ -141,9 +141,9 @@ define(function() {
 
 	/**
 	 * Set the enable/disable state of the robot
-	 * @name DriverStation#enable
+	 * @name Halyard#enable
 	 */
-	DriverStation.prototype.__defineSetter__("enable", function(value) {
+	Halyard.prototype.__defineSetter__("enable", function(value) {
 
 		// Flip the value of the correct bit
 		if (value) {
@@ -156,9 +156,9 @@ define(function() {
 
 	/**
 	 * Get the enable/disable state of the robot
-	 * @name DriverStation#enabled
+	 * @name Halyard#enabled
 	 */
-	DriverStation.prototype.__defineGetter__("enabled", function() {
+	Halyard.prototype.__defineGetter__("enabled", function() {
 
 		// Get the enabled bit
 		return (num & (1 << 2) !== 0);
@@ -167,17 +167,17 @@ define(function() {
 
 	/**
 	 * Set the mode of the robot
-	 * @name DriverStation#mode
+	 * @name Halyard#mode
 	 */
-	DriverStation.prototype.__defineSetter__("mode", function(value) {
+	Halyard.prototype.__defineSetter__("mode", function(value) {
 
 		// Flip the right bits
-		if (value === DriverStation.MODE.AUTONOMOUS) {
+		if (value === Halyard.MODE.AUTONOMOUS) {
 			this._to.control = this._to.control | (1 << 3);
 		} else {
 			this._to.control = this._to.control & ~(1 << 3);
 		}
-		if (value === DriverStation.MODE.TEST) {
+		if (value === Halyard.MODE.TEST) {
 			this._to.control = this._to.control | (1 << 6);
 		} else {
 			this._to.control = this._to.control & ~(1 << 6);
@@ -187,26 +187,26 @@ define(function() {
 
 	/**
 	 * Get the mode of the robot
-	 * @name DriverStation#mode
+	 * @name Halyard#mode
 	 */
-	DriverStation.prototype.__defineGetter__("mode", function() {
+	Halyard.prototype.__defineGetter__("mode", function() {
 
 		// If autonomous
-		if (num & (1 << 3) !== 0) return DriverStation.MODE.AUTONOMOUS;
+		if (num & (1 << 3) !== 0) return Halyard.MODE.AUTONOMOUS;
 
 		// If test
-		if (num & (1 << 6) !== 0) return DriverStation.MODE.TEST;
+		if (num & (1 << 6) !== 0) return Halyard.MODE.TEST;
 
 		// Default to teleop
-		return DriverStation.MODE.TELEOP;
+		return Halyard.MODE.TELEOP;
 
 	});
 
 	/**
 	 * Get the battery level of the robot
-	 * @name DriverStation#battery
+	 * @name Halyard#battery
 	 */
-	DriverStation.prototype.__defineGetter__("battery", function() {
+	Halyard.prototype.__defineGetter__("battery", function() {
 
 		// Return the battery 
 		return this._from.battery;
@@ -215,9 +215,9 @@ define(function() {
 
 	/**
 	 * Get the mac address of the robot
-	 * @name DriverStation#cRIO_MAC
+	 * @name Halyard#cRIO_MAC
 	 */
-	DriverStation.prototype.__defineGetter__("cRIO_MAC", function() {
+	Halyard.prototype.__defineGetter__("cRIO_MAC", function() {
 
 		// Return the cRIO MAC address
 		return this._from.cRIO_MAC;
@@ -226,9 +226,9 @@ define(function() {
 
 	/**
 	 * Set the alliance of the robot
-	 * @name DriverStation#alliance
+	 * @name Halyard#alliance
 	 */
-	DriverStation.prototype.__defineSetter__("alliance", function(value) {
+	Halyard.prototype.__defineSetter__("alliance", function(value) {
 
 		// Set the value
 		this._to.alliance = value ? 82 : 66;
@@ -237,9 +237,9 @@ define(function() {
 
 	/**
 	 * Set the position of the robot
-	 * @name DriverStation#position
+	 * @name Halyard#position
 	 */
-	DriverStation.prototype.__defineSetter__("position", function(value) {
+	Halyard.prototype.__defineSetter__("position", function(value) {
 
 		// If invalid default to 0
 		if ([48, 49, 50].indexOf(value) === -1) { value = 48; }
@@ -251,9 +251,9 @@ define(function() {
 
 	/**
 	 * Set the digital inputs of the robot
-	 * @name DriverStation#digitalIn
+	 * @name Halyard#digitalIn
 	 */
-	DriverStation.prototype.__defineGetter__("digitalIn", function() { return []; });
+	Halyard.prototype.__defineGetter__("digitalIn", function() { return []; });
 
 	// DIO setter
 	function digitalInSetter(index, value) {
@@ -271,15 +271,15 @@ define(function() {
 	for (i = 0; i < 8; i++) {
 
 		// Save the setter
-		DriverStation.prototype.digitalIn.__defineSetter__(i + 1, digitalInSetter.bind(DriverStation.prototype, i));
+		Halyard.prototype.digitalIn.__defineSetter__(i + 1, digitalInSetter.bind(Halyard.prototype, i));
 
 	}
 
 	/**
 	 * Set the analog inputs of the robot
-	 * @name DriverStation#analog
+	 * @name Halyard#analog
 	 */
-	DriverStation.prototype.__defineGetter__("analog", function() { return []; });
+	Halyard.prototype.__defineGetter__("analog", function() { return []; });
 
 	// analog setter
 	function analogSetter(index, value) {
@@ -297,12 +297,12 @@ define(function() {
 	for (i = 0; i < 4; i++) {
 
 		// Define a setter for each
-		DriverStation.prototype.analog.__defineSetter__(i + 1, analogSetter.bind(DriverStation.prototype, i));
+		Halyard.prototype.analog.__defineSetter__(i + 1, analogSetter.bind(Halyard.prototype, i));
 
 	}
 
 	// Create new array for joystick
-	DriverStation.prototype.__defineGetter("joysticks", function() {
+	Halyard.prototype.__defineGetter("joysticks", function() {
 
 		// Return our empty array
 		return [
@@ -345,7 +345,7 @@ define(function() {
 		for (j = 0; j < 6; j++) {
 
 			// Add each
-			DriverStation.prototype.joysticks[i + 1].axes.__defineSetter__(j + 1, axisSetter.bind(DriverStation.prototype, i, j));
+			Halyard.prototype.joysticks[i + 1].axes.__defineSetter__(j + 1, axisSetter.bind(Halyard.prototype, i, j));
 
 		}
 
@@ -353,7 +353,7 @@ define(function() {
 		for (j = 0; j < 16; j++) {
 
 			// Add each
-			DriverStation.prototype.joysticks[i + 1].buttons.__defineSetter__(j + 1, buttonsSetter.bind(DriverStation.prototype, i, j));
+			Halyard.prototype.joysticks[i + 1].buttons.__defineSetter__(j + 1, buttonsSetter.bind(Halyard.prototype, i, j));
 
 		}
 
@@ -361,11 +361,11 @@ define(function() {
 
 	/**
 	 * Send a new update to the cRIO
-	 * @name DriverStation#_send
+	 * @name Halyard#_send
 	 * @private
 	 * @function
 	 */
-	DriverStation.prototype._send = function() {
+	Halyard.prototype._send = function() {
 
 		// Create a buffer of data to send
 		var buf = new Buffer(1024);
