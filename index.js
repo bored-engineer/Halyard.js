@@ -472,10 +472,8 @@ define(function() {
 		// Set the crc and add it to the end
 		buf.writeUInt32BE(crc32.unsigned(buf), 1020);
 
-		console.log(buf);
-
 		// Send a control packet
-		//this._socket.send(buf, 0, 1024, 1110, this._ips["cRIO"]);
+		this._socket.send(buf, 0, 1024, 1110, this._ips["cRIO"]);
 
 	};
 
